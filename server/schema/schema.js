@@ -1,6 +1,6 @@
 const graphql = require('graphql');
 const _ = require('lodash');
-const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLInt } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLInt, GraphQLList } = graphql;
 // Different properties grabbed from the GraphQL Package
 
 var books = [
@@ -31,7 +31,6 @@ const BookType = new GraphQLObjectType({
         author: {
             type: AuthorType,
             resolve(parent, args){
-                console.log(parent);
                 return _.find(authors, { id: parent.authorId });
             }
             // Telling GraphQL which author corresponds with the requested book
@@ -44,7 +43,14 @@ const AuthorType = new GraphQLObjectType({
     fields: ( ) => ({
         id: { type: GraphQLID },
         name: { type: GraphQLString },
-        age: { type: GraphQLInt }
+        age: { type: GraphQLInt },
+        books: {
+            type: new GraphQLList(BookType), 
+            resolve(parent, args){
+                return _.filter(books, { authorId: parent.id })
+            }
+        }
+        // Finding which books correspond to which author
     })
 });
 
