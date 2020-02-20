@@ -34,13 +34,14 @@ const BookType = new GraphQLObjectType({
                 return _.find(authors, { id: parent.authorId });
             }
             // Telling GraphQL which author corresponds with the requested book
+            // Fields is wrapped in a function as for example BookType and AuthorType are called before being defined -> No need to order code accordingly
         }
     })
 });
 
 const AuthorType = new GraphQLObjectType({
     name: 'Author',
-    fields: ( ) => ({
+    fields: () => ({
         id: { type: GraphQLID },
         name: { type: GraphQLString },
         age: { type: GraphQLInt },
@@ -71,7 +72,21 @@ const RootQuery = new GraphQLObjectType({
             resolve(parent, args){
                 return _.find(authors, { id: args.id });
             }
+        },
+        books: {
+            type: new GraphQLList(BookType),
+            resolve(parent, args){
+                return books
+            }
+        },
+        // Ability to return all the books
+        authors: {
+            type: new GraphQLList(AuthorType),
+            resolve(parent, args){
+                return authors
+            }
         }
+        // Ability to return all the authors
     }
 });
 // Defining the requested data in the query
