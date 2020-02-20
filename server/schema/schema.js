@@ -4,26 +4,38 @@ const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLInt }
 // Different properties grabbed from the GraphQL Package
 
 var books = [
-    { name: 'A Game of Thrones', genre: 'Epic fantasy', id: '1' },
-    { name: 'A Clash of Kings', genre: 'Epic fantasy', id: '2' },
-    { name: 'A Storm of Swords', genre: 'Epic fantasy', id: '3' },
-    { name: 'A Feast for Crows', genre: 'Epic fantasy', id: '4' },
-    { name: 'A Dance with Dragons', genre: 'Epic fantasy', id: '5' },
-    { name: 'The Winds of Winter', genre: 'Epic fantasy', id: '6' },
-    { name: 'A Dream of Spring', genre: 'Epic fantasy', id: '7' }
+    { name: 'A Game of Thrones', genre: 'Epic Fantasy', id: '1', authorId: '1' },
+    { name: 'A Clash of Kings', genre: 'Epic Fantasy', id: '2', authorId: '1' },
+    { name: 'A Storm of Swords', genre: 'Epic Fantasy', id: '3', authorId: '1' },
+    { name: 'A Feast for Crows', genre: 'Epic Fantasy', id: '4', authorId: '1' },
+    { name: 'A Dance with Dragons', genre: 'Epic Fantasy', id: '5', authorId: '1' },
+    { name: 'The Winds of Winter', genre: 'Epic Fantasy', id: '6', authorId: '1' },
+    { name: 'A Dream of Spring', genre: 'Epic Fantasy', id: '7', authorId: '1' },
+    { name: 'The Hunger Games', genre: 'Dystopian, Sci-Fi', id: '8', authorId: '2'},
+    { name: 'Catching Fire', genre: 'Dystopian, Sci-Fi', id: '8', authorId: '2'},
+    { name: 'Mockingjay', genre: 'Dystopian, Sci-Fi', id: '8', authorId: '2'}
 ];
 
 var authors = [
-    { name: 'George R.R. Martin', age: '71', id: '1'}
+    { name: 'George R.R. Martin', age: '71', id: '1'},
+    { name: 'Suzanne Collins', age: '57', id: '2'}
 ]
 // Dummy book data instead of database
 
 const BookType = new GraphQLObjectType({
     name: 'Book',
-    fields: ( ) => ({
+    fields: () => ({
         id: { type: GraphQLID },
         name: { type: GraphQLString },
-        genre: { type: GraphQLString }
+        genre: { type: GraphQLString },
+        author: {
+            type: AuthorType,
+            resolve(parent, args){
+                console.log(parent);
+                return _.find(authors, { id: parent.authorId });
+            }
+            // Telling GraphQL which author corresponds with the requested book
+        }
     })
 });
 
