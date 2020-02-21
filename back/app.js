@@ -4,7 +4,6 @@ const schema = require('./schema/schema');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const cors = require('cors');
-
 const app = express();
 const password = process.env.PASSWORD;
 
@@ -25,3 +24,4 @@ app.use('/graphql', graphqlHTTP({
 app.listen(4000, () => {
     console.log('Listening on 4000');
 });
+

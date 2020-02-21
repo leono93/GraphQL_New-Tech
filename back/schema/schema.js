@@ -1,6 +1,12 @@
 const graphql = require('graphql');
 const _ = require('lodash');
-const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLInt, GraphQLList, GraphQLNonNull } = graphql;
+const { GraphQLObjectType, 
+        GraphQLString, 
+        GraphQLSchema, 
+        GraphQLID, 
+        GraphQLInt, 
+        GraphQLList, 
+        GraphQLNonNull } = graphql;
 // Different properties grabbed from the GraphQL Package
 
 const Book = require('../models/book');
