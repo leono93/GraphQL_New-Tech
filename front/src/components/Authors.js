@@ -7,6 +7,7 @@ const getAuthorsQ = gql`
     authors{
         name
         age
+        id
     }
 }
 `
@@ -18,7 +19,7 @@ class Authors extends Component {
             return(<div>Loading ...</div>);
         }   else {
             return data.authors.map(authors =>{
-                return(<li>Author: { authors.name }, age: { authors.age }</li>);
+                return(<li>Author: { authors.name } | age: { authors.age } | <b>Author Identifier:</b> { authors.id }</li>);
             });
         }
     }
@@ -32,3 +33,4 @@ class Authors extends Component {
 }
 
 export default graphql(getAuthorsQ)(Authors);
+

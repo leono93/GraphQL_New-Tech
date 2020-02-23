@@ -19,7 +19,7 @@ class Books extends Component {
             return(<div>Loading ...</div>);
         }   else {
             return data.books.map(book =>{
-                return(<li>Book name: { book.name }, genre: { book.genre }</li>);
+                return(<li>Book name: { book.name } | genre: { book.genre } | <b>Book Identifier:</b> { book.id }</li>);
             });
         }
     }

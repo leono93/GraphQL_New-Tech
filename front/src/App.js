@@ -14,10 +14,10 @@ function App() {
     <div className="Main">
       <h1>GraphQL Library</h1>
       <div>
-        <Books/>
+        <h3>List of Books:</h3> <Books/>
       </div>
       <div>
-        <Authors/>
+        <h3>List of Authors:</h3> <Authors/>
       </div>
     </div>
     </ApolloProvider>
